@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bigsong.cmdb.mapper.CompanyInfoMapper">
+    <resultMap id="BaseResultMap" type="com.bigsong.cmdb.model.CompanyInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+        <result column="company_address" property="companyAddress" jdbcType="VARCHAR"/>
+        <result column="company_type" property="companyType" jdbcType="VARCHAR"/>
+        <result column="company_remark" property="companyRemark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, company_name, company_address, company_type, company_remark
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bigsong.cmdb.model.CompanyInfoExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from company_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from company_info
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from company_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.bigsong.cmdb.model.CompanyInfoExample">
+        delete from company_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.bigsong.cmdb.model.CompanyInfo">
+    insert into company_info (id, company_name, company_address, 
+      company_type, company_remark)
+    values (#{id,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
+      #{companyType,jdbcType=VARCHAR}, #{companyRemark,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.bigsong.cmdb.model.CompanyInfo">
+        insert into company_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="companyAddress != null">
+                company_address,
+            </if>
+            <if test="companyType != null">
+                company_type,
+            </if>
+            <if test="companyRemark != null">
+                company_remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyAddress != null">
+                #{companyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="companyType != null">
+                #{companyType,jdbcType=VARCHAR},
+            </if>
+            <if test="companyRemark != null">
+                #{companyRemark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.bigsong.cmdb.model.CompanyInfoExample"
+            resultType="java.lang.Integer">
+        select count(*) from company_info
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update company_info
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.companyName != null">
+                company_name = #{record.companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.companyAddress != null">
+                company_address = #{record.companyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.companyType != null">
+                company_type = #{record.companyType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.companyRemark != null">
+                company_remark = #{record.companyRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update company_info
+        set id = #{record.id,jdbcType=BIGINT},
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+        company_address = #{record.companyAddress,jdbcType=VARCHAR},
+        company_type = #{record.companyType,jdbcType=VARCHAR},
+        company_remark = #{record.companyRemark,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bigsong.cmdb.model.CompanyInfo">
+        update company_info
+        <set>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyAddress != null">
+                company_address = #{companyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="companyType != null">
+                company_type = #{companyType,jdbcType=VARCHAR},
+            </if>
+            <if test="companyRemark != null">
+                company_remark = #{companyRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bigsong.cmdb.model.CompanyInfo">
+    update company_info
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      company_remark = #{companyRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="findCompanyByPage" resultMap="BaseResultMap" parameterType="com.bigsong.cmdb.Request.CompanyRequest">
+        select
+        <include refid="Base_Column_List"/>
+        from company_info
+        where 1=1
+        <if test="companyName != null">
+            and company_name like '%${companyName}%'
+        </if>
+        <if test="companyType != null">
+            and company_type = #{companyType}
+        </if>
+    </select>
+</mapper>
