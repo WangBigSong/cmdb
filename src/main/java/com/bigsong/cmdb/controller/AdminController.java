@@ -29,7 +29,7 @@ public class AdminController {
     private CompanyInfoService companyInfoService;
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
-    @RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     private WebResponse adminLogin(@RequestBody UserInfo userInfo) {
         logger.info("======================用户登录=============================");
         List<UserInfo> DbUser = adminUserService.login(userInfo);
@@ -41,7 +41,7 @@ public class AdminController {
     }
 
     @ApiOperation(value = "新增用户信息", notes = "新增用户信息")
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     private WebResponse addUser(@RequestBody UserInfo userInfo) {
         logger.info("======================新增用户信息=============================");
         int count = adminUserService.addUser(userInfo);

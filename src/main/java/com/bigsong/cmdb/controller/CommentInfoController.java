@@ -20,7 +20,7 @@ public class CommentInfoController {
     private CommentInfoService commentInfoService;
 
     @ApiOperation(value = "添加評論", notes = "添加評論")
-    @RequestMapping(value = "/addComment", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     private WebResponse addComment(@RequestBody CommentInfo request) {
         logger.info("======================添加評論 =============================");
         return WebResponseUtil.returnSucc(commentInfoService.addComment(request));
@@ -28,7 +28,7 @@ public class CommentInfoController {
 
 
     @ApiOperation(value = "刪除評論", notes = "刪除評論")
-    @RequestMapping(value = "/delComment", method = RequestMethod.POST)
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
     private WebResponse delComment(@RequestParam(value = "id") long id) {
         logger.info("======================刪除評論 =============================");
         return WebResponseUtil.returnSucc(commentInfoService.delComment(id));
@@ -36,7 +36,7 @@ public class CommentInfoController {
 
 
     @ApiOperation(value = "通過公司編號 獲取評論列表, 不传编号就显示所有的评论", notes = "通過公司編號 獲取評論列表")
-    @RequestMapping(value = "/listComment", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     private WebResponse listComment(@ModelAttribute CommentRequest request) {
         logger.info("======================評論列表 =============================");
         return WebResponseUtil.returnSucc(commentInfoService.listByCompanyId(request));

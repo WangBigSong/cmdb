@@ -36,7 +36,7 @@ public class CompanyInfoController {
 
 
     @ApiOperation(value = "删除公司信息", notes = "删除公司信息")
-    @RequestMapping(value = "/delCompany", method = RequestMethod.POST)
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
     private WebResponse delCompanyInfo(@RequestParam(value = "id") long id) {
         logger.info("======================删除公司信息 =============================");
         int count = companyInfoService.delCompany(id);
@@ -49,7 +49,7 @@ public class CompanyInfoController {
 
 
     @ApiOperation(value = "修改公司信息", notes = "修改公司信息")
-    @RequestMapping(value = "/updateCompany", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     private WebResponse updateCompany(@RequestBody CompanyInfo companyInfo) {
         logger.info("======================修改公司信息 =============================");
         int count = companyInfoService.updateCompany(companyInfo);
@@ -61,7 +61,7 @@ public class CompanyInfoController {
     }
 
     @ApiOperation(value = "公司列表", notes = "公司列表")
-    @RequestMapping(value = "/listCompany", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     private WebResponse listCompany(@ModelAttribute CompanyRequest request) {
         logger.info("======================公司列表 =============================");
         return WebResponseUtil.returnSucc(companyInfoService.listInfo(request));
