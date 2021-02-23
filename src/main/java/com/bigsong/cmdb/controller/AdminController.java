@@ -10,6 +10,8 @@ import com.bigsong.cmdb.utils.NullUtil;
 import com.bigsong.cmdb.utils.WebResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.kie.api.KieBase;
+import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +23,22 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     private final Logger logger = LoggerFactory.getLogger(AdminController.class);
+    @Autowired
+    private KieSession session;
+
+    @Autowired
+    private KieBase kieBase;
 
     @Autowired
     private AdminUserService adminUserService;
 
-    @Autowired
-    private CompanyInfoService companyInfoService;
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     private WebResponse adminLogin(@RequestBody UserInfo userInfo) {
+
+        session.insert(userInfo);//插入
+        int i= session.fireAllRules();//执行规则
         logger.info("======================用户登录=============================");
         List<UserInfo> DbUser = adminUserService.login(userInfo);
         if (DbUser.size() > 0) {
